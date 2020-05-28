@@ -70,7 +70,7 @@ public class ControllerServlet extends HttpServlet {
 		for (String destr: destructWords) {
 			System.out.println(destr);
 		}
-		
+		System.out.println(destructWords.length);
 		
 		try {
 			db.queryDB(destructWords);

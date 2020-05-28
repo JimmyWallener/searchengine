@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import se.gritacademy.search.model.DBConnection;
 
@@ -31,6 +33,7 @@ public class DBHandler {
 	String bears = Model.getBearbase();
 	String ikea = Model.getIkeanames();
 	String masters = Model.getMasters();
+
 	
 	
 	public void queryDB(String[] list){
@@ -40,6 +43,7 @@ public class DBHandler {
 		try {
 				Connection con = connect.initDatabase();
 				
+			if(strings.length <= 10) {	
 				values.append(" (");
 				for (int i = 1; i <= strings.length;i++) {
 					values.append("?");
@@ -49,7 +53,9 @@ public class DBHandler {
 						}
 				}
 				values.append(" )");
-
+			} else {
+				System.out.println("To many search queries");
+			}
 				
 				if (con != null) {
 					System.out.println("Connected to the database!");
@@ -58,15 +64,16 @@ public class DBHandler {
 				}
 				
 				
-				PreparedStatement search = con.prepareStatement(bears.concat(values.toString()) + " " + union + " " +
-																ikea.concat(values.toString()) + " " + union + " " +
-															masters.concat(values.toString()));
+				PreparedStatement search = con.prepareStatement(bears.replaceAll("\\?", values.toString()) + " " + union + " " +
+																ikea.replaceAll("\\?", values.toString()) + " " + union + " " +
+																masters.replaceAll("\\?", values.toString()));
+				
 					
 				int test = strings.length;
 				
-				for (int i = 1; i < (test * 3) + 1; i++) {
+				for (int i = 1; i < (test * 26) + 1; i++) {
 					for (int j = 0; j < test;j++) {
-					search.setString(i, "^" + strings[j]);
+					search.setString(i, "%" + strings[j] + "%");
 					}
 				}
 				
@@ -74,6 +81,7 @@ public class DBHandler {
 				
 				ResultSetMetaData meta = rs.getMetaData();
 				int columns = meta.getColumnCount();
+				System.out.println(columns);
 				
 				if(!rs.next()) {
 					System.out.println("No Data");
@@ -87,12 +95,33 @@ public class DBHandler {
 				
 				rs.close();
 				con.close();
-				output.removeIf(Objects::isNull);
-				System.out.println(output.toString());
+				search.close();
 				
+				output.removeIf(Objects::isNull);
+				
+				String newLine = "";
 				for (String e : output) {
-					System.out.println(e);
+					newLine += e.concat(" ");
 				}
+				newLine.replace("\\", "\\\\")
+		          .replace("\t", "\\t")
+		          .replace("\b", "\\b")
+		          .replace("\n", "\\n")
+		          .replace("\r", "\\r")
+		          .replace("\f", "\\f")
+		          .replace("\'", "\\'")
+		          .replace("\"", "\\\"");
+				
+				String[] fixed = newLine.split("\\~");
+				System.out.println(fixed.length);
+				
+				for(int i = 0; i < fixed.length;i++){
+					System.out.println(fixed[i]);
+				}
+			
+				
+				
+				
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

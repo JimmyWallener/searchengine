@@ -12,17 +12,11 @@ public class DestructString {
 	
 	public String[] destructureString(String string) {
 		
-		String[] listWords = null;
-		
-		for (int i = 0; i < string.length();i++) {
-			
-			listWords = string.split("\\s+");
-			
-			for (int j = 0; j < listWords.length; j++) {
-				listWords[j] = listWords[j].replaceAll("[^a-zA-Z0-9]", "");
-			}
-			
+		String[] listWords = string.split("\\s+");
+		for (int j = 0; j < listWords.length; j++) {
+			listWords[j] = listWords[j].replaceAll("[^a-zA-Z0-9]", "");
 		}
+		
 		return listWords;
 		
 	}
