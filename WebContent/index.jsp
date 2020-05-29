@@ -23,9 +23,7 @@
 </form>
 </div>
 </div>
-<div class="copyright">
-<footer>&copy; Copyright 2020 Jimmy Wallener</footer>
-</div>
+
 
 </body>
 </html>
