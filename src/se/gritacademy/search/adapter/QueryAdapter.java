@@ -15,8 +15,13 @@ public class QueryAdapter {
 		
 		list.removeIf(Objects::isNull);
 		
-		
-		
+		newLine.replace("\f", "\\f")
+				.replace("\n", "\\n")
+				.replace("\"", "\\")
+				.replace("\\", "\\\\")
+				.replace("\t", "\\t");
+				
+				
 		for (String e : list) {
 			newLine += e + " ";
 		}
