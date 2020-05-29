@@ -6,8 +6,7 @@ Efter muntliga redovisningen fortsatte jag att tänka på hur jag kunde göra mi
 hållningen att fortsätta med UNION ALL (bara för att jag kunde), vilket satte prov på att få ut datan bra i resultatet.
 Fick ordna egen radbrytning, vilket skapade ett problem med att sortera bort dubbletter. 
 
-Hade en viss annan bättre struktur tidigare på fredagen, men efter att felsökt NullException error i timmar, fick jag förändra tills
-jag hittade det som genererade ett nullvärde. Vet inte helt än vart det var, men det försvann när jag tog bort .concat() på ett ställe.
+Hade en viss annan bättre struktur tidigare på fredagen, men efter att felsökt NullPointerException error i timmar, fick jag förändra tills jag hittade det som genererade ett nullvärde. Vet inte helt än vart det var, men det försvann när jag tog bort .concat() på ett ställe.
 
 Jag har försökt att göra MS1,MS2,MS3 och MS4. Det är upp till dig att avgöra om jag lyckades :)
 
@@ -21,6 +20,7 @@ MS4  6. Jag presenterar resultatet med en ordered list.
 
 
 Så vitt jag kan se har jag även följt MVC strukturen och har separerat min kod väl.
+I och med ändringarna jag gjort med hur databasen genomsöks, stödjer den nu även flerordssökning.
 
 Ha en trevlig sommar!
 Ses till hösten!
