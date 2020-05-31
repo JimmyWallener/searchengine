@@ -21,11 +21,15 @@ public class QueryAdapter {
 		for (String e : list) {
 			newLine += e + " ";
 		}
-		newLine.replace("\f", "\\f")
-				.replace("\n", "\\n")
-				.replace("\"", "\\")
-				.replace("\\", "\\\\")
-				.replace("\t", "\\t");
+		newLine.replace("\\", "\\\\")
+		          .replace("\t", "\\t")
+		          .replace("\b", "\\b")
+		          .replace("\n", "\\n")
+		          .replace("\r", "\\r")
+		          .replace("\f", "\\f")
+		          .replace("\'", "\\'")
+		          .replace("\"", "\\\"");
+		
 		setFixed(newLine.split("\\~"));
 		}
 
